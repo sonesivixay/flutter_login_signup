@@ -96,6 +96,9 @@ class LoginUserState extends State {
         child: Center(
           child: Column(
             children: <Widget>[
+              Center(
+                child: Image.asset('assets/images/logo.png'),
+              ),
               Padding(
                   padding: const EdgeInsets.all(12.0),
                   child:
