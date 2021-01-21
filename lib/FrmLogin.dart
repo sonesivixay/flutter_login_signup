@@ -37,8 +37,8 @@ class LoginUserState extends State {
     String password = passwordController.text;
 
     // SERVER LOGIN API URL
-    //var url = 'http://172.16.2.107/flutter_php/login_user.php';
-    var url = 'http://192.168.100.14/flutter_php/login_user.php';
+    var url = 'http://172.16.2.107/flutter_php/login_user.php';
+    //var url = 'http://192.168.100.14/flutter_php/login_user.php';
 
     // Store all data with Param Name.
     var data = {'email': email, 'password': password};

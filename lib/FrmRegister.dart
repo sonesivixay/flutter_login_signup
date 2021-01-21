@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_login_signup/FrmLogin.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -43,8 +44,8 @@ class RegisterUserState extends State {
     String password = passwordController.text;
 
     // SERVER API URL
-    //var url = 'http://172.16.2.107/flutter_php/register_user.php';
-    var url = 'http://192.168.100.14/flutter_php/register_user.php';
+    var url = 'http://172.16.2.107/flutter_php/register_user.php';
+    //var url = 'http://192.168.100.14/flutter_php/register_user.php';
 
     // Store all data with Param Name.
     var data = {'name': name, 'email': email, 'password': password};
@@ -141,6 +142,19 @@ class RegisterUserState extends State {
               margin: EdgeInsets.only(bottom: 30),
               child: CircularProgressIndicator(),
             ),
+          ),
+          Divider(),
+          RaisedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FrmLogin()),
+              );
+            },
+            color: Colors.green,
+            textColor: Colors.white,
+            padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+            child: Text('Login'),
           ),
         ],
       ),
