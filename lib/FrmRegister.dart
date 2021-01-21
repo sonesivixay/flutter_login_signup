@@ -92,6 +92,22 @@ class RegisterUserState extends State {
           child: Column(
             children: <Widget>[
               Padding(
+                padding: const EdgeInsets.fromLTRB(53, 35, 53, 23),
+                child: Container(
+                  //padding: const EdgeInsets.all(235),
+                  height: 100,
+                  decoration: BoxDecoration(
+                    // color: Colors.orangeAccent,
+                    image: DecorationImage(
+                      image: AssetImage("images/logo.png"),
+                      fit: BoxFit.fitWidth,
+                      alignment: Alignment.topCenter,
+                    ),
+                  ),
+                  alignment: Alignment.center,
+                ),
+              ),
+              Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Text('User Registration Form',
                       style: TextStyle(fontSize: 21))),
@@ -136,7 +152,7 @@ class RegisterUserState extends State {
                 color: Colors.green,
                 textColor: Colors.white,
                 padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                child: Text('Click Here To Register User Online'),
+                child: Text('Register'),
               ),
               Visibility(
                 visible: visible,
@@ -156,7 +172,7 @@ class RegisterUserState extends State {
                 color: Colors.green,
                 textColor: Colors.white,
                 padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
-                child: Text('Login'),
+                child: Text('Already Register Go to Login'),
               ),
             ],
           ),

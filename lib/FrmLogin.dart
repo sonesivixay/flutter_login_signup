@@ -21,10 +21,16 @@ class LoginUser extends StatefulWidget {
 class LoginUserState extends State {
   // For CircularProgressIndicator.
   bool visible = false;
+  final _formKey = GlobalKey<FormState>();
 
   // Getting value from TextField widget.
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  void clearText() {
+    emailController.clear();
+    passwordController.clear();
+  }
 
   Future userLogin() async {
     // Showing CircularProgressIndicator.
@@ -89,69 +95,147 @@ class LoginUserState extends State {
     }
   }
 
+  FocusNode myFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+
+    myFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    myFocusNode.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Center(
-                child: Image.asset('assets/images/logo.png'),
+    return Form(
+      key: _formKey,
+      child: Center(
+        child: Column(
+          //crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(53, 35, 53, 23),
+              child: Container(
+                //padding: const EdgeInsets.all(235),
+                height: 100,
+                decoration: BoxDecoration(
+                  // color: Colors.orangeAccent,
+                  image: DecorationImage(
+                    image: AssetImage("images/logo.png"),
+                    fit: BoxFit.fitWidth,
+                    alignment: Alignment.topCenter,
+                  ),
+                ),
+                alignment: Alignment.center,
               ),
-              Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child:
-                      Text('User Login Form', style: TextStyle(fontSize: 21))),
-              Divider(),
-              Container(
+            ),
+            Column(
+              children: [
+                Padding(
+                    padding: const EdgeInsets.all(0.0),
+                    child: Text('User Login Form',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ))),
+                Divider(),
+                Container(
                   width: 280,
                   padding: EdgeInsets.all(10.0),
-                  child: TextField(
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
                     controller: emailController,
                     autocorrect: true,
-                    decoration:
-                        InputDecoration(labelText: 'Enter Your Email Here'),
-                  )),
-              Container(
+                    focusNode: myFocusNode,
+                    decoration: InputDecoration(
+                      labelText: 'Enter Your Email Here',
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.clear),
+                        onPressed: () => emailController.clear(),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
                   width: 280,
                   padding: EdgeInsets.all(10.0),
-                  child: TextField(
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
                     controller: passwordController,
                     autocorrect: true,
                     obscureText: true,
-                    decoration:
-                        InputDecoration(labelText: 'Enter Your Password Here'),
-                  )),
-              RaisedButton(
-                onPressed: userLogin,
-                color: Colors.green,
-                textColor: Colors.white,
-                padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
-                child: Text('Login'),
-              ),
-              Visibility(
-                visible: visible,
-                child: Container(
-                  margin: EdgeInsets.only(bottom: 30),
-                  child: CircularProgressIndicator(),
+                    decoration: InputDecoration(
+                      labelText: 'Enter Your Email Here',
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.clear),
+                        onPressed: () => passwordController.clear(),
+                      ),
+                    ),
+                  ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: RaisedButton(
+                    onPressed: () {
+                      myFocusNode.requestFocus();
+                      // Validate returns true if the form is valid, or false
+                      // otherwise.
+                      if (_formKey.currentState.validate()) {
+                        // If the form is valid, display a Snackbar.
+                        userLogin();
+                        clearText();
+
+                        //Scaffold.of(context).showSnackBar(
+                        //   SnackBar(content: Text('Processing Data')));
+                      }
+                    },
+                    color: Colors.green,
+                    textColor: Colors.white,
+                    padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                    child: Text('Login'),
+                  ),
+                ),
+              ],
+            ),
+            Visibility(
+              visible: visible,
+              child: Container(
+                margin: EdgeInsets.only(bottom: 30),
+                child: CircularProgressIndicator(),
               ),
-              Divider(),
-              RaisedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => FrmRegister()),
-                  );
-                },
-                color: Colors.green,
-                textColor: Colors.white,
-                padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
-                child: Text('Register'),
-              ),
-            ],
-          ),
+            ),
+            Divider(),
+            RaisedButton(
+              onPressed: () {
+                clearText();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => FrmRegister()),
+                );
+              },
+              color: Colors.green,
+              textColor: Colors.white,
+              padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+              child: Text('Don\'t Have Account Go To Register'),
+            ),
+          ],
         ),
       ),
     );
