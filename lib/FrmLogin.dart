@@ -92,61 +92,65 @@ class LoginUserState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-            child: Center(
-      child: Column(
-        children: <Widget>[
-          Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Text('User Login Form', style: TextStyle(fontSize: 21))),
-          Divider(),
-          Container(
-              width: 280,
-              padding: EdgeInsets.all(10.0),
-              child: TextField(
-                controller: emailController,
-                autocorrect: true,
-                decoration: InputDecoration(labelText: 'Enter Your Email Here'),
-              )),
-          Container(
-              width: 280,
-              padding: EdgeInsets.all(10.0),
-              child: TextField(
-                controller: passwordController,
-                autocorrect: true,
-                obscureText: true,
-                decoration:
-                    InputDecoration(labelText: 'Enter Your Password Here'),
-              )),
-          RaisedButton(
-            onPressed: userLogin,
-            color: Colors.green,
-            textColor: Colors.white,
-            padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
-            child: Text('Login'),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child:
+                      Text('User Login Form', style: TextStyle(fontSize: 21))),
+              Divider(),
+              Container(
+                  width: 280,
+                  padding: EdgeInsets.all(10.0),
+                  child: TextField(
+                    controller: emailController,
+                    autocorrect: true,
+                    decoration:
+                        InputDecoration(labelText: 'Enter Your Email Here'),
+                  )),
+              Container(
+                  width: 280,
+                  padding: EdgeInsets.all(10.0),
+                  child: TextField(
+                    controller: passwordController,
+                    autocorrect: true,
+                    obscureText: true,
+                    decoration:
+                        InputDecoration(labelText: 'Enter Your Password Here'),
+                  )),
+              RaisedButton(
+                onPressed: userLogin,
+                color: Colors.green,
+                textColor: Colors.white,
+                padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                child: Text('Login'),
+              ),
+              Visibility(
+                visible: visible,
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 30),
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+              Divider(),
+              RaisedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FrmRegister()),
+                  );
+                },
+                color: Colors.green,
+                textColor: Colors.white,
+                padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                child: Text('Register'),
+              ),
+            ],
           ),
-          Visibility(
-            visible: visible,
-            child: Container(
-              margin: EdgeInsets.only(bottom: 30),
-              child: CircularProgressIndicator(),
-            ),
-          ),
-          Divider(),
-          RaisedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => FrmRegister()),
-              );
-            },
-            color: Colors.green,
-            textColor: Colors.white,
-            padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
-            child: Text('Register'),
-          ),
-        ],
+        ),
       ),
-    )));
+    );
   }
 }

@@ -87,77 +87,81 @@ class RegisterUserState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-            child: Center(
-      child: Column(
-        children: <Widget>[
-          Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Text('User Registration Form',
-                  style: TextStyle(fontSize: 21))),
-          Divider(),
-          Container(
-            width: 280,
-            padding: EdgeInsets.all(10.0),
-            child: TextField(
-              controller: nameController,
-              autocorrect: true,
-              decoration: InputDecoration(hintText: 'Enter Your Name Here'),
-            ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text('User Registration Form',
+                      style: TextStyle(fontSize: 21))),
+              Divider(),
+              Container(
+                width: 280,
+                padding: EdgeInsets.all(10.0),
+                child: TextField(
+                  controller: nameController,
+                  autocorrect: true,
+                  decoration: InputDecoration(hintText: 'Enter Your Name Here'),
+                ),
+              ),
+              Container(
+                width: 280,
+                padding: EdgeInsets.all(10.0),
+                child: TextField(
+                  controller: emailController,
+                  autocorrect: true,
+                  decoration:
+                      InputDecoration(hintText: 'Enter Your Email Here'),
+                ),
+              ),
+              Container(
+                width: 280,
+                padding: EdgeInsets.all(10.0),
+                child: TextField(
+                  controller: passwordController,
+                  autocorrect: true,
+                  obscureText: true,
+                  decoration:
+                      InputDecoration(hintText: 'Enter Your Password Here'),
+                ),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  userRegistration();
+                  nameController.clear();
+                  emailController.clear();
+                  passwordController.clear();
+                },
+                color: Colors.green,
+                textColor: Colors.white,
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: Text('Click Here To Register User Online'),
+              ),
+              Visibility(
+                visible: visible,
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 30),
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+              Divider(),
+              RaisedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FrmLogin()),
+                  );
+                },
+                color: Colors.green,
+                textColor: Colors.white,
+                padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
+                child: Text('Login'),
+              ),
+            ],
           ),
-          Container(
-            width: 280,
-            padding: EdgeInsets.all(10.0),
-            child: TextField(
-              controller: emailController,
-              autocorrect: true,
-              decoration: InputDecoration(hintText: 'Enter Your Email Here'),
-            ),
-          ),
-          Container(
-            width: 280,
-            padding: EdgeInsets.all(10.0),
-            child: TextField(
-              controller: passwordController,
-              autocorrect: true,
-              obscureText: true,
-              decoration: InputDecoration(hintText: 'Enter Your Password Here'),
-            ),
-          ),
-          RaisedButton(
-            onPressed: () {
-              userRegistration();
-              nameController.clear();
-              emailController.clear();
-              passwordController.clear();
-            },
-            color: Colors.green,
-            textColor: Colors.white,
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-            child: Text('Click Here To Register User Online'),
-          ),
-          Visibility(
-            visible: visible,
-            child: Container(
-              margin: EdgeInsets.only(bottom: 30),
-              child: CircularProgressIndicator(),
-            ),
-          ),
-          Divider(),
-          RaisedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => FrmLogin()),
-              );
-            },
-            color: Colors.green,
-            textColor: Colors.white,
-            padding: EdgeInsets.fromLTRB(9, 9, 9, 9),
-            child: Text('Login'),
-          ),
-        ],
+        ),
       ),
-    )));
+    );
   }
 }
