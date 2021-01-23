@@ -43,8 +43,8 @@ class LoginUserState extends State {
     String password = passwordController.text;
 
     // SERVER LOGIN API URL
-    var url = 'http://172.16.2.107/flutter_php/login_user.php';
-    //var url = 'http://192.168.100.14/flutter_php/login_user.php';
+    // var url = 'http://172.16.2.107/flutter_php/login_user.php';
+    var url = 'http://192.168.100.14/flutter_php/login_user.php';
 
     // Store all data with Param Name.
     var data = {'email': email, 'password': password};
@@ -64,10 +64,14 @@ class LoginUserState extends State {
 
       // Navigate to Profile Screen & Sending Email to Next Screen.
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  ProfileScreen(email: emailController.text)));
+        context,
+        MaterialPageRoute(
+          builder: (context) => ProfileScreen(
+            email: email,
+            username: username,
+          ),
+        ),
+      );
     } else {
       // If Email or Password did not Matched.
       // Hiding the CircularProgressIndicator.
@@ -93,23 +97,6 @@ class LoginUserState extends State {
         },
       );
     }
-  }
-
-  FocusNode myFocusNode;
-
-  @override
-  void initState() {
-    super.initState();
-
-    myFocusNode = FocusNode();
-  }
-
-  @override
-  void dispose() {
-    // Clean up the focus node when the Form is disposed.
-    myFocusNode.dispose();
-
-    super.dispose();
   }
 
   @override
@@ -139,12 +126,15 @@ class LoginUserState extends State {
             Column(
               children: [
                 Padding(
-                    padding: const EdgeInsets.all(0.0),
-                    child: Text('User Login Form',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                        ))),
+                  padding: const EdgeInsets.all(0.0),
+                  child: Text(
+                    'User Login Form',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
                 Divider(),
                 Container(
                   width: 280,
@@ -158,7 +148,7 @@ class LoginUserState extends State {
                     },
                     controller: emailController,
                     autocorrect: true,
-                    focusNode: myFocusNode,
+                    autofocus: true,
                     decoration: InputDecoration(
                       labelText: 'Enter Your Email Here',
                       suffixIcon: IconButton(
@@ -182,7 +172,7 @@ class LoginUserState extends State {
                     autocorrect: true,
                     obscureText: true,
                     decoration: InputDecoration(
-                      labelText: 'Enter Your Email Here',
+                      labelText: 'Enter Your Password Here',
                       suffixIcon: IconButton(
                         icon: Icon(Icons.clear),
                         onPressed: () => passwordController.clear(),
@@ -194,17 +184,16 @@ class LoginUserState extends State {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: RaisedButton(
                     onPressed: () {
-                      myFocusNode.requestFocus();
                       // Validate returns true if the form is valid, or false
                       // otherwise.
                       if (_formKey.currentState.validate()) {
                         // If the form is valid, display a Snackbar.
                         userLogin();
-                        clearText();
 
                         //Scaffold.of(context).showSnackBar(
                         //   SnackBar(content: Text('Processing Data')));
                       }
+                      clearText();
                     },
                     color: Colors.green,
                     textColor: Colors.white,
