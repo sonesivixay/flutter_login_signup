@@ -68,7 +68,7 @@ class LoginUserState extends State {
         MaterialPageRoute(
           builder: (context) => ProfileScreen(
             email: email,
-            username: username,
+            // username: username,
           ),
         ),
       );
